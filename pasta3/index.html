@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hub Jurídico - Integrador de Projetos</title>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0f172a">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #0f172a;
+      --card: #1e293b;
+      --border: #334155;
+      --text: #f1f5f9;
+      --muted: #94a3b8;
+      --primary: #3b82f6;
+      --success: #22c55e;
+      --danger: #ef4444;
+      --warning: #f59e0b;
+      --accent: #7c3aed;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0;
+      display: flex;
+      height: 100vh;
+      flex-direction: column;
+    }
+
+    /* ── HEADER ── */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px;
+      background-color: var(--card);
+      border-bottom: 1px solid var(--border);
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 20px;
+      font-weight: 800;
+    }
+
+    .logo-icon {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, #3b82f6, #22c55e);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+
+    nav {
+      display: flex;
+      gap: 20px;
+      flex: 1;
+      flex-wrap: wrap;
+    }
+
+    nav button {
+      background: none;
+      border: none;
+      color: var(--muted);
+      cursor: pointer;
+      font-size: 14px;
+      padding: 8px 16px;
+      border-radius: 6px;
+      transition: all 0.2s;
+      font-weight: 500;
+    }
+
+    nav button:hover {
+      background-color: var(--border);
+      color: var(--text);
+    }
+
+    nav button.active {
+      background-color: var(--primary);
+      color: white;
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+
+    .btn-primary {
+      background-color: var(--primary);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background-color: #2563eb;
+    }
+
+    .btn-secondary {
+      background-color: var(--border);
+      color: var(--text);
+    }
+
+    .btn-secondary:hover {
+      background-color: #475569;
+    }
+
+    .btn-success {
+      background-color: var(--success);
+      color: white;
+    }
+
+    .btn-success:hover {
+      background-color: #16a34a;
+    }
+
+    .btn-danger {
+      background-color: var(--danger);
+      color: white;
+    }
+
+    .btn-danger:hover {
+      background-color: #dc2626;
+    }
+
+    /* ── MAIN ── */
+    main {
+      flex: 1;
+      display: flex;
+      overflow: hidden;
+    }
+
+    /* ── SIDEBAR ── */
+    .sidebar {
+      width: 280px;
+      background-color: var(--card);
+      border-right: 1px solid var(--border);
+      overflow-y: auto;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar-section {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .sidebar-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .sidebar-item {
+      padding: 10px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 14px;
+      color: var(--muted);
+      border: none;
+      background: none;
+      text-align: left;
+      border-left: 3px solid transparent;
+    }
+
+    .sidebar-item:hover {
+      background-color: var(--border);
+      color: var(--text);
+    }
+
+    .sidebar-item.active {
+      background-color: var(--primary);
+      color: white;
+      border-left-color: var(--success);
+    }
+
+    /* ── CONTENT AREA ── */
+    .content-area {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .page {
+      display: none;
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    /* ── CARDS ── */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .card {
+      background-color: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      transition: all 0.2s;
+    }
+
+    .card:hover {
+      border-color: var(--primary);
+      box-shadow: 0 0 20px rgba(59, 130, 246, 0.1);
+    }
+
+    .card h2 {
+      font-size: 18px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card p {
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 16px;
+      line-height: 1.6;
+    }
+
+    /* ── PROJECTS LIST ── */
+    .projects-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .project-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px;
+      background-color: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .project-item:hover {
+      background-color: var(--card);
+      border-color: var(--primary);
+    }
+
+    .project-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, #3b82f6, #22c55e);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .project-info {
+      flex: 1;
+    }
+
+    .project-name {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .project-meta {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .project-status {
+      display: inline-block;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      margin-top: 4px;
+    }
+
+    .status-local {
+      background-color: #3b82f6;
+      color: white;
+    }
+
+    .status-synced {
+      background-color: #22c55e;
+      color: white;
+    }
+
+    .status-pending {
+      background-color: #f59e0b;
+      color: white;
+    }
+
+    .project-actions {
+      display: flex;
+      gap: 6px;
+    }
+
+    .project-actions button {
+      background: none;
+      border: none;
+      color: var(--muted);
+      cursor: pointer;
+      padding: 4px;
+      transition: color 0.2s;
+    }
+
+    .project-actions button:hover {
+      color: var(--text);
+    }
+
+    /* ── MODALS ── */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.7);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .modal-content {
+      background-color: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 30px;
+      max-width: 500px;
+      width: 90%;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .modal-header h2 {
+      font-size: 20px;
+    }
+
+    .close-btn {
+      background: none;
+      border: none;
+      color: var(--muted);
+      font-size: 24px;
+      cursor: pointer;
+      padding: 0;
+    }
+
+    .close-btn:hover {
+      color: var(--text);
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--muted);
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background-color: var(--bg);
+      color: var(--text);
+      font-size: 14px;
+      font-family: inherit;
+      transition: border-color 0.2s;
+    }
+
+    input:focus,
+    textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .status-badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .status-badge.online {
+      background-color: #22c55e;
+      color: white;
+    }
+
+    .status-badge.offline {
+      background-color: #ef4444;
+      color: white;
+    }
+
+    .status-badge.syncing {
+      background-color: #f59e0b;
+      color: white;
+    }
+
+    .alert {
+      padding: 12px 16px;
+      border-radius: 8px;
+      margin-bottom: 16px;
+      font-size: 14px;
+    }
+
+    .alert-success {
+      background-color: #22c55e;
+      color: white;
+    }
+
+    .alert-error {
+      background-color: #ef4444;
+      color: white;
+    }
+
+    .alert-info {
+      background-color: #3b82f6;
+      color: white;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .sidebar {
+        display: none;
+      }
+
+      nav {
+        flex-wrap: wrap;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ── SCROLLBAR ── */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--bg);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--border);
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--muted);
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <!-- HEADER -->
+    <header>
+      <div class="logo">
+        <div class="logo-icon">&lt;/&gt;</div>
+        <span>Hub Jurídico</span>
+      </div>
+      <nav id="mainNav">
+        <button class="nav-btn active" data-page="projetos">📁 Projetos</button>
+        <button class="nav-btn" data-page="editor">✏️ Editor</button>
+        <button class="nav-btn" data-page="repositorio">🐙 Repositório</button>
+        <button class="nav-btn" data-page="pwa">📦 PWA</button>
+        <button class="nav-btn" data-page="sincronizacao">🔄 Sincronização</button>
+      </nav>
+      <div class="header-actions">
+        <span id="statusBadge" class="status-badge offline">Offline</span>
+        <button class="btn btn-primary" onclick="HubApp.openNewProjectModal()">+ Novo</button>
+        <button class="btn btn-secondary" onclick="HubApp.importZip()">📥 Importar</button>
+      </div>
+    </header>
+
+    <!-- MAIN -->
+    <main>
+      <!-- SIDEBAR -->
+      <aside class="sidebar">
+        <div class="sidebar-section">
+          <div class="sidebar-title">Projetos Recentes</div>
+          <div id="recentProjects"></div>
+        </div>
+        <div class="sidebar-section">
+          <div class="sidebar-title">Ações Rápidas</div>
+          <button class="sidebar-item" onclick="HubApp.openNewProjectModal()">+ Novo Projeto</button>
+          <button class="sidebar-item" onclick="HubApp.importZip()">📥 Importar ZIP</button>
+          <button class="sidebar-item" onclick="HubApp.exportZip()">📤 Exportar ZIP</button>
+          <button class="sidebar-item" onclick="HubApp.syncAll()">🔄 Sincronizar Tudo</button>
+        </div>
+      </aside>
+
+      <!-- CONTENT -->
+      <div class="content-area">
+        <!-- PROJETOS PAGE -->
+        <div id="projetosPage" class="page active">
+          <h1 style="margin-bottom: 20px;">📁 Meus Projetos</h1>
+          <div id="alertContainer"></div>
+          <div class="projects-list" id="projectsList"></div>
+        </div>
+
+        <!-- EDITOR PAGE -->
+        <div id="editorPage" class="page">
+          <h1 style="margin-bottom: 20px;">✏️ Editor</h1>
+          <div id="editorContent"></div>
+        </div>
+
+        <!-- REPOSITÓRIO PAGE -->
+        <div id="repositorioPage" class="page">
+          <h1 style="margin-bottom: 20px;">🐙 Conexão com Repositório</h1>
+          <div class="grid">
+            <div class="card">
+              <h2>🔗 Conectar GitHub</h2>
+              <p>Sincronize seus projetos com um repositório GitHub</p>
+              <button class="btn btn-primary" onclick="HubApp.connectGitHub()" style="width: 100%;">Conectar</button>
+            </div>
+            <div class="card">
+              <h2>📤 Push para Repositório</h2>
+              <p>Envie suas alterações para o repositório</p>
+              <button class="btn btn-success" onclick="HubApp.pushRepository()" style="width: 100%;">Push</button>
+            </div>
+            <div class="card">
+              <h2>📥 Pull do Repositório</h2>
+              <p>Sincronize com as alterações remotas</p>
+              <button class="btn btn-primary" onclick="HubApp.pullRepository()" style="width: 100%;">Pull</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- PWA PAGE -->
+        <div id="pwaPage" class="page">
+          <h1 style="margin-bottom: 20px;">📦 Geração de PWA</h1>
+          <div class="grid">
+            <div class="card">
+              <h2>📄 Manifest.json</h2>
+              <p>Gere o arquivo de configuração PWA</p>
+              <button class="btn btn-primary" onclick="HubApp.generateManifest()" style="width: 100%;">Gerar</button>
+            </div>
+            <div class="card">
+              <h2>⚙️ Service Worker</h2>
+              <p>Crie o arquivo de cache e offline</p>
+              <button class="btn btn-primary" onclick="HubApp.generateServiceWorker()" style="width: 100%;">Gerar</button>
+            </div>
+            <div class="card">
+              <h2>🎨 Ícones</h2>
+              <p>Gere ícones para diferentes tamanhos</p>
+              <button class="btn btn-primary" onclick="HubApp.generateIcons()" style="width: 100%;">Gerar</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- SINCRONIZAÇÃO PAGE -->
+        <div id="sincronizacaoPage" class="page">
+          <h1 style="margin-bottom: 20px;">🔄 Sincronização</h1>
+          <div id="syncStatus"></div>
+          <div id="syncLog"
+            style="background-color: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 16px; font-family: 'Courier New', monospace; font-size: 12px; color: #22c55e; min-height: 300px; max-height: 500px; overflow-y: auto; margin-top: 20px;">
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- MODALS -->
+  <div id="newProjectModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Novo Projeto</h2>
+        <button class="close-btn" onclick="HubApp.closeModal('newProjectModal')">×</button>
+      </div>
+      <form onsubmit="HubApp.createProject(event)">
+        <div class="form-group">
+          <label>Nome do Projeto</label>
+          <input type="text" id="projectName" placeholder="Meu Projeto" required>
+        </div>
+        <div class="form-group">
+          <label>Descrição</label>
+          <textarea id="projectDesc" placeholder="Descrição do projeto..."></textarea>
+        </div>
+        <div class="form-group">
+          <label>Tipo</label>
+          <select id="projectType" style="width: 100%; padding: 10px 12px; border: 1px solid var(--border); border-radius: 8px; background-color: var(--bg); color: var(--text);">
+                    <option value="html">HTML/CSS/JS</option>
+                    <option value="react">React</option>
+                    <option value="vue">Vue</option>
+                    <option value="angular">Angular</option>
+                    <option value="node">Node.js</option>
+                </select>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width: 100%;">Criar Projeto</button>
+      </form>
+    </div>
+  </div>
+
+  <input type="file" id="zipInput" accept=".zip" style="display: none;">
+
+  <!-- SCRIPTS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/file-saver/2.0.5/FileSaver.min.js"></script>
+</body>
+
+</html>
