@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hub Jurídico - Integrado</title>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0f172a">
+</head>
+
+<body>
+
+  <div id="app"></div>
+
+  <!-- CORE SYSTEM -->
+  <script src="core/system.js"></script>
+
+  <!-- MÓDULOS (cada um é independente mas se registra no sistema) -->
+  <script src="modules/projetos/projetos.js"></script>
+  <script src="modules/editor/editor.js"></script>
+  <script src="modules/terminal/terminal.js"></script>
+  <script src="modules/ia/ia.js"></script>
+  <script src="modules/github/github.js"></script>
+  <script src="modules/apk/apk.js"></script>
+
+  <!-- INICIALIZAÇÃO -->
+  <script src="app.js"></script>
+
+</body>
+
+</html>
