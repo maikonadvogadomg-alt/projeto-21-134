@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hub Jurídico - Integrador</title>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0f172a">
+  <meta name="description" content="Hub integrador de projetos jurídicos">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+  <!-- ESTRUTURA BASE -->
+  <div class="container">
+    <header id="header"></header>
+    <main id="main">
+      <aside id="sidebar"></aside>
+      <div id="content"></div>
+    </main>
+  </div>
+
+  <!-- MODALS -->
+  <div id="modalsContainer"></div>
+
+  <!-- BIBLIOTECAS EXTERNAS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/file-saver/2.0.5/FileSaver.min.js"></script>
+
+<!-- BIBLIOTECAS EXTERNAS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/file-saver/2.0.5/FileSaver.min.js"></script>
+
+<!-- DETECÇÃO DE ENCODING -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jschardet/2.0.1/jschardet.min.js"></script>
+
+<!-- CONVERSÃO DE ENCODING -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/iconv-lite/0.6.3/iconv-lite.min.js"></script>
+
+  <!-- SCRIPTS (Ordem importa!) -->
+  <script src="js/config.js"></script>
+<!-- SCRIPTS (Ordem importa!) -->
+<script src="js/config.js"></script>
+<script src="js/encoding.js"></script>
+<script src="js/base.js"></script>
+<!-- ... resto dos scripts ... -->
+  <script src="js/base.js"></script>
+  <script src="js/modules/projetos.js"></script>
+  <script src="js/modules/editor.js"></script>
+  <script src="js/modules/repositorio.js"></script>
+  <script src="js/modules/pwa.js"></script>
+  <script src="js/modules/sincronizacao.js"></script>
+  <script src="js/app.js"></script>
+
+</body>
+
+</html>
